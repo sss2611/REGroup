@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="form-container text-center">
-    <img src="../static/img/REGroup.jpg" alt="REGroup Logo" class="logo">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
     
     {% if email %}
         <h2>¡Casi listo! Revisa tu correo</h2>

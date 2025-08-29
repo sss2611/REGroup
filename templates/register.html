@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="form-container">
-    <img src="../static/img/REGroup.jpg" alt="REGroup Logo" class="logo">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
     <h2>Crea tu Cuenta</h2>
     <p>Únete a la red de reciclaje más grande.</p>
     <form method="POST" action="{{ url_for('register') }}">

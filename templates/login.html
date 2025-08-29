@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="form-container">
-    <img src="../static/img/REGroup.jpg" alt="REGroup Logo" class="logo">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
     <h2>Iniciar Sesión</h2>
     <p>Ingresa tus credenciales para continuar.</p>
     <form method="POST" action="{{ url_for('login') }}">
