@@ -5,5 +5,5 @@ services:
     buildCommand: ""
     startCommand: gunicorn app:app
     envVars:
-      - key: FLASK_ENV
-        value: production
+      - key: SECRET_ENV
+        value: clave-super-secreta
