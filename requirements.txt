@@ -1,4 +1,5 @@
 Flask
-Flask-WTF
-Werkzeug
 gunicorn
+itsdangerous
+Werkzeug
+WTForms

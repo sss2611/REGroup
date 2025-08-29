@@ -1,16 +1,16 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
-from forms import RegisterForm, LoginForm
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
+from forms import RegisterForm, LoginForm
+import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+
+# Clave secreta para sesiones y tokens
+app.secret_key = os.environ.get("SECRET_KEY", "clave-super-secreta")
 serializer = URLSafeTimedSerializer(app.secret_key)
 
-# Base de datos en memoria para la demo.
-# ¡Ahora incluimos los puntos!
-# Formato: {'email': {'username': '...', 'password': '...', 'confirmed': False, 'points': 0}}
+# Base de datos en memoria (solo para demo)
 users = {}
 
 @app.route('/')
@@ -58,11 +58,12 @@ def register():
             return render_template('register.html', form=form)
 
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-        # Al registrar un usuario, sus puntos inician en 0
-        users[email] = {'email ': email, 'password': hashed_password, 'confirmed': False, 'points': 0}
-        
-        # Simulación: Damos 50 puntos de bienvenida al validar la cuenta
-        users[email]['points'] = 50
+        users[email] = {
+            'username': email.split('@')[0],
+            'password': hashed_password,
+            'confirmed': False,
+            'points': 50  # puntos de bienvenida
+        }
 
         token = serializer.dumps(email, salt='email-confirm')
         return redirect(url_for('check_email', token=token))
@@ -99,8 +100,8 @@ def dashboard():
         email = session['email']
         user_data = users.get(email, {})
         username = user_data.get('username', 'Usuario')
-        points = user_data.get('points', 0) # Obtenemos los puntos
-        return render_template('dashboard.html', username=username, points=points) # Pasamos los puntos a la plantilla
+        points = user_data.get('points', 0)
+        return render_template('dashboard.html', username=username, points=points)
     
     flash('Debes iniciar sesión para ver esta página.', 'info')
     return redirect(url_for('login'))
@@ -111,6 +112,7 @@ def logout():
     flash('Has cerrado sesión exitosamente.', 'success')
     return redirect(url_for('login'))
 
+# Configuración para Render: escuchar en el puerto correcto
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
