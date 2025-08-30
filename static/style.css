@@ -131,9 +131,9 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-.nav-logo {
+/* .nav-logo {
     max-width: 120px;
-}
+} */
 
 .user-info {
     display: flex;
@@ -186,14 +186,15 @@ img {
 }
 
 .logo-img {
+  width: 100%;
   max-width: 200px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 
-.logo-img {
-  width: 100%;
-  max-width: 200px;
+.nav-logo {
+  max-width: 120px;
   height: auto;
+  display: block;
 }
