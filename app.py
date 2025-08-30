@@ -1,9 +1,10 @@
 # app.py
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from werkzeug.middleware.proxy_fix import ProxyFix
 from forms import RegisterForm, LoginForm
+from urllib.parse import quote
 import os
 
 app = Flask(__name__)
@@ -43,8 +44,9 @@ def login():
 
         if not user_data['confirmed']:
             token = serializer.dumps(email, salt='email-confirm')
+            safe_token = quote(token)
             flash('Tu cuenta no está validada. Por favor, revisa tu correo.', 'warning')
-            return redirect(url_for('check_email', token=token))
+            return redirect(url_for('check_email', token=safe_token))
 
         if check_password_hash(user_data['password'], password):
             session['email'] = email
@@ -75,7 +77,8 @@ def register():
         }
 
         token = serializer.dumps(email, salt='email-confirm')
-        return redirect(url_for('check_email', token=token))
+        safe_token = quote(token)
+        return redirect(url_for('check_email', token=safe_token))
         
     return render_template('register.html', form=form)
 
@@ -121,6 +124,7 @@ def logout():
     flash('Has cerrado sesión exitosamente.', 'success')
     return redirect(url_for('login'))
 
+# Configuración para Render
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
