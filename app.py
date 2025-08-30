@@ -1,16 +1,25 @@
+# app.py
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
+from werkzeug.middleware.proxy_fix import ProxyFix
 from forms import RegisterForm, LoginForm
 import os
 
 app = Flask(__name__)
-
-# Clave secreta para sesiones y tokens
 app.secret_key = os.environ.get("SECRET_KEY", "clave-super-secreta")
 serializer = URLSafeTimedSerializer(app.secret_key)
 
-# Base de datos en memoria (solo para demo)
+# 🔐 Seguridad para sesiones en Render
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
+
+# 🛡️ Detectar HTTPS detrás de proxy (Render)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
+
+# 🧠 Base de datos en memoria (demo)
 users = {}
 
 @app.route('/')
@@ -62,7 +71,7 @@ def register():
             'username': email.split('@')[0],
             'password': hashed_password,
             'confirmed': False,
-            'points': 50  # puntos de bienvenida
+            'points': 50
         }
 
         token = serializer.dumps(email, salt='email-confirm')
@@ -112,7 +121,6 @@ def logout():
     flash('Has cerrado sesión exitosamente.', 'success')
     return redirect(url_for('login'))
 
-# Configuración para Render: escuchar en el puerto correcto
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
