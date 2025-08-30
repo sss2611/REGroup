@@ -5,7 +5,7 @@
 
 {% block content %}
   <div class="form-container">
-    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}" alt="Logo REGroup">
 
     <h2>Crea tu Cuenta</h2>
     <p>Únete a la red de reciclaje más grande.</p>
@@ -13,7 +13,6 @@
     <form method="POST" action="{{ url_for('register') }}">
       {{ form.hidden_tag() }}
 
-      <!-- Campo Email -->
       <div class="form-group">
         {{ form.email.label }}
         {{ form.email(class="form-control", placeholder="ejemplo@correo.com") }}
@@ -26,7 +25,6 @@
         {% endif %}
       </div>
 
-      <!-- Campo Contraseña -->
       <div class="form-group">
         {{ form.password.label }}
         {{ form.password(class="form-control", placeholder="Mínimo 6 caracteres") }}
@@ -39,7 +37,6 @@
         {% endif %}
       </div>
 
-      <!-- Campo Confirmación -->
       <div class="form-group">
         {{ form.confirm_password.label }}
         {{ form.confirm_password(class="form-control", placeholder="Repite tu contraseña") }}
@@ -52,7 +49,6 @@
         {% endif %}
       </div>
 
-      <!-- Botón de Envío -->
       <div class="form-group">
         {{ form.submit(class="btn") }}
       </div>

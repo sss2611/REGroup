@@ -131,9 +131,9 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-/* .nav-logo {
+.nav-logo {
     max-width: 120px;
-} */
+}
 
 .user-info {
     display: flex;
