@@ -4,72 +4,94 @@
 {% block title %}Inicio - REGroup{% endblock %}
 
 {% block content %}
-<div class="dashboard-container">
+  <div class="dashboard-container">
+
+    <!-- Navbar -->
     <nav class="navbar">
-      <img src="{{ url_for('static', filename='img/REGroup.jpg') }}" class="logo-img" alt="Logo REGroup">
-        <div class="user-info">
-            <!-- Bloque de Puntos -->
-            <div class="points-display">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
-                <span>{{ points }} Puntos</span>
-            </div>
-            <span>Hola, <strong>{{ username }}</strong></span>
-            <a href="{{ url_for('logout') }}" class="btn btn-logout">Cerrar Sesión</a>
+      <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
+      <div class="user-info">
+
+        <!-- Bloque de Puntos -->
+        <div class="points-display">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="feather feather-gift">
+            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+            <rect x="2" y="7" width="20" height="5"></rect>
+            <line x1="12" y1="22" x2="12" y2="7"></line>
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+          </svg>
+          <span>{{ points }} Puntos</span>
         </div>
+
+        <span>Hola, <strong>{{ username }}</strong></span>
+        <a href="{{ url_for('logout') }}" class="btn btn-logout">Cerrar Sesión</a>
+      </div>
     </nav>
 
+    <!-- Contenido Principal -->
     <div class="main-content">
-        <div class="welcome-header">
-            <h1>¡Bienvenido a REGroup!</h1>
-            <p class="subtitle">Gracias por unirte a nuestra comunidad para hacer del mundo un lugar más limpio.</p>
+
+      <!-- Bienvenida -->
+      <div class="welcome-header">
+        <h1>¡Bienvenido a REGroup!</h1>
+        <p class="subtitle">
+          Gracias por unirte a nuestra comunidad para hacer del mundo un lugar más limpio.
+        </p>
+      </div>
+
+      <!-- Sección de Canje -->
+      <div class="redeem-section">
+        <h2>Canjea tus Puntos</h2>
+        <p>
+          ¡Tu esfuerzo tiene recompensa! Acumula puntos reciclando y canjéalos por increíbles beneficios.
+        </p>
+
+        <div class="rewards-container">
+          <div class="reward-card">
+            <span class="reward-points">500 Puntos</span>
+            <h4>Descuento en Tiendas</h4>
+            <p>Obtén un 15% de descuento en tiendas ecológicas asociadas.</p>
+          </div>
+          <div class="reward-card">
+            <span class="reward-points">1000 Puntos</span>
+            <h4>Entrada al Cine</h4>
+            <p>Disfruta de una función 2D en tu cine favorito.</p>
+          </div>
+          <div class="reward-card">
+            <span class="reward-points">2500 Puntos</span>
+            <h4>Donación a Reforestación</h4>
+            <p>Patrocina la plantación de un árbol en tu nombre.</p>
+          </div>
         </div>
 
-        <!-- Nueva Sección de Canje de Puntos -->
-        <div class="redeem-section">
-            <h2>Canjea tus Puntos</h2>
-            <p>¡Tu esfuerzo tiene recompensa! Acumula puntos reciclando y canjéalos por increíbles beneficios.</p>
-            <div class="rewards-container">
-                <div class="reward-card">
-                    <span class="reward-points">500 Puntos</span>
-                    <h4>Descuento en Tiendas</h4>
-                    <p>Obtén un 15% de descuento en tiendas ecológicas asociadas.</p>
-                </div>
-                <div class="reward-card">
-                    <span class="reward-points">1000 Puntos</span>
-                    <h4>Entrada al Cine</h4>
-                    <p>Disfruta de una función 2D en tu cine favorito.</p>
-                </div>
-                <div class="reward-card">
-                    <span class="reward-points">2500 Puntos</span>
-                    <h4>Donación a Reforestación</h4>
-                    <p>Patrocina la plantación de un árbol en tu nombre.</p>
-                </div>
-            </div>
-            <a href="#" class="btn btn-disabled">Ver todos los premios (Próximamente)</a>
-        </div>
+        <a href="#" class="btn btn-disabled">Ver todos los premios (Próximamente)</a>
+      </div>
 
-        <div class="instructions-section">
-            <h2>¿Cómo Empezar a Reciclar?</h2>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3>Encuentra un Punto Verde</h3>
-                    <p>Usa nuestro mapa interactivo para localizar el centro de recolección más cercano.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3>Escanea tus Residuos</h3>
-                    <p>Al llegar al Punto Verde, registra los materiales que vas a depositar.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3>Acumula Puntos y Gana</h3>
-                    <p>Cada material reciclado te suma puntos. ¡Canjéalos por beneficios!</p>
-                </div>
-            </div>
+      <!-- Instrucciones -->
+      <div class="instructions-section">
+        <h2>¿Cómo Empezar a Reciclar?</h2>
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Encuentra un Punto Verde</h3>
+            <p>Usa nuestro mapa interactivo para localizar el centro de recolección más cercano.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Escanea tus Residuos</h3>
+            <p>Al llegar al Punto Verde, registra los materiales que vas a depositar.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Acumula Puntos y Gana</h3>
+            <p>Cada material reciclado te suma puntos. ¡Canjéalos por beneficios!</p>
+          </div>
         </div>
+      </div>
 
     </div>
-</div>
+  </div>
 {% endblock %}
-
