@@ -5,3 +5,4 @@ gunicorn
 itsdangerous
 Werkzeug
 flask-wtf>=1.1.1
+email_validator
