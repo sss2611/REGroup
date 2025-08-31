@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Mapa de Puntos REG - REGroup{% endblock %}
+
+{% block content %}
+<div class="map-page-container">
+    <div class="map-header">
+        <h1><i class="fa-solid fa-map-location-dot"></i> Encuentra tu Punto REG más cercano</h1>
+        <p>Selecciona un punto en el mapa para ver su dirección y detalles.</p>
+    </div>
+    <div id="map"></div>
+    <div class="map-footer">
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
+    </div>
+</div>
+
+<!-- Paso 1: Almacenar los datos de forma segura en un script de tipo "application/json" -->
+<script id="map-data" type="application/json">
+    {{ puntos_reg|tojson|safe }}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Inicializar el mapa, centrado en Santiago del Estero
+    const map = L.map('map').setView([-27.7844, -64.2615], 13);
+
+    // 2. Añadir la capa de OpenStreetMap (el fondo del mapa)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // 3. Leer los datos desde el script JSON y convertirlos a un objeto de JavaScript
+    const mapDataElement = document.getElementById('map-data');
+    const puntos = JSON.parse(mapDataElement.textContent);
+    
+    // Crear un icono personalizado
+    var puntoIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448609.png',
+        iconSize:     [40, 40], // tamaño del icono
+        iconAnchor:   [20, 40], // punto del icono que corresponde a la ubicación
+        popupAnchor:  [0, -40]  // punto desde donde se abrirá el popup
+    });
+
+    puntos.forEach(function(punto) {
+        L.marker([punto.lat, punto.lon], {icon: puntoIcon}).addTo(map)
+            .bindPopup(`<b>${punto.name}</b><br>${punto.address}`);
+    });
+});
+</script>
+{% endblock %}
+
