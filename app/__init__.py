@@ -20,7 +20,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     
     # --- Configuración ---
-    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback-key')
     # Ubicación de la base de datos SQLite dentro de la carpeta 'instance'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
