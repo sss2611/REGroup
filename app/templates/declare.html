@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Declarar Depósito - REGroup{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}" alt="REGroup Logo" class="logo">
+    <h2>Registrar Entrega</h2>
+    <p>Punto REG: <strong>{{ reg_point_name }}</strong></p>
+    <p>Describe brevemente el residuo electrónico que vas a depositar para generar la etiqueta.</p>
+    
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.item_description.label }}
+            {{ form.item_description(class="form-control", placeholder="Ej: Celular Samsung J7, Monitor 19 pulgadas") }}
+            {% if form.item_description.errors %}
+                <div class="error-message">
+                    {% for error in form.item_description.errors %}<span>{{ error }}</span>{% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+    <a href="{{ url_for('main.dashboard') }}" style="text-decoration: none;">Cancelar</a>
+</div>
+{% endblock %}

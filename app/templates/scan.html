@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Escanear QR - REGroup{% endblock %}
+
+{% block content %}
+<div class="form-container" style="max-width: 600px;">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}" alt="REGroup Logo" class="logo">
+    <h2>Escanear Código del Punto REG</h2>
+    <p>Apunta la cámara de tu dispositivo al código QR ubicado en el contenedor de reciclaje.</p>
+
+    <div id="qr-reader" style="width: 100%; border-radius: 12px; border: 1px solid #ccc; overflow: hidden;"></div>
+
+    <div id="qr-reader-results" class="mt-3"></div>
+
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    // Función que se ejecuta cuando se escanea un código QR exitosamente
+    function onScanSuccess(decodedText, decodedResult) {
+        console.log(`Código escaneado: ${decodedText}`);
+        html5QrcodeScanner.clear();
+
+        document.getElementById('qr-reader-results').innerHTML = `
+            <div class="alert alert-success">
+                <strong>¡Éxito!</strong> Punto REG detectado. Redirigiendo...
+            </div>`;
+
+        fetch("{{ url_for('main.process_scan') }}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reg_point_id: decodedText }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            });
+    }
+
+    // NUEVA FUNCIÓN PARA MANEJAR ERRORES
+    function onScanFailure(error) {
+        // Esta función se puede dejar vacía o usar para logging.
+        // La librería ya muestra errores comunes en la UI.
+        console.warn(`Fallo en el escaneo del QR = ${error}`);
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader",
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        /* verbose= */ false);
+
+    // Inicia el escáner con ambas funciones de callback
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+{% endblock %}
