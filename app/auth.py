@@ -92,7 +92,7 @@ def confirm_email(token):
                 flash('¡Cuenta validada! Has recibido 50 puntos de bienvenida.', 'success')
             else:
                 flash('Esta cuenta ya había sido validada. Ya puedes iniciar sesión.', 'info')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('main.dashboard'))
         else:
             flash('Usuario no encontrado.', 'danger')
             return redirect(url_for('auth.register'))
