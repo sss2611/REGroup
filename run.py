@@ -23,7 +23,7 @@ def seed():
         print("Puntos REG creados.")
     else:
         print("Los Puntos REG ya existen.")
-
+        
 if __name__ == '__main__':
-    # ESTA ES LA LÍNEA DE COMANDO CRÍTICA Y CORRECTA
-    app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
+    # Solo para desarrollo local
+    app.run(debug=True)
