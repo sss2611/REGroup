@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Términos y Condiciones - REGroup{% endblock %}
+
+{% block content %}
+<div class="static-page-container">
+    <img src="../static/img/logo.jpg" alt="REGroup Logo" class="logo-small">
+    <h1>Términos y Condiciones de Uso de REGroup</h1>
+    <p class="last-updated">Última actualización: 29 de agosto de 2025</p>
+
+    <div class="terms-content">
+        <h2>1. Aceptación de los Términos</h2>
+        <p>Al registrarse y utilizar la aplicación REGroup (en adelante, "la Aplicación"), usted acepta y se compromete a cumplir con los presentes Términos y Condiciones. Si no está de acuerdo con alguno de los términos, no debe utilizar la Aplicación.</p>
+
+        <h2>2. Descripción del Servicio</h2>
+        <p>REGroup es una plataforma que busca incentivar el reciclaje mediante un sistema de acumulación de puntos. Los usuarios pueden localizar "Puntos Verdes", registrar los materiales que reciclan y acumular puntos que podrán ser canjeados por beneficios y recompensas ofrecidas por la Aplicación o sus socios comerciales.</p>
+
+        <h2>3. Registro y Cuenta de Usuario</h2>
+        <p>Para utilizar las funcionalidades completas de la Aplicación, es necesario crear una cuenta de usuario. Usted se compromete a proporcionar información veraz, actual y completa durante el proceso de registro. Es responsable de mantener la confidencialidad de su contraseña y de todas las actividades que ocurran en su cuenta.</p>
+
+        <h2>4. Sistema de Puntos</h2>
+        <ul>
+            <li>Los puntos se asignan en base a la cantidad y tipo de material reciclado, según las tasas de conversión establecidas por REGroup.</li>
+            <li>REGroup se reserva el derecho de modificar el valor de los puntos y las condiciones de canje en cualquier momento.</li>
+            <li>Los puntos no tienen valor monetario fuera de la plataforma y no son transferibles.</li>
+            <li>Cualquier intento de fraude, manipulación del sistema de escaneo o registro de información falsa para obtener puntos resultará en la suspensión inmediata y permanente de la cuenta.</li>
+        </ul>
+
+        <h2>5. Uso Aceptable</h2>
+        <p>Usted se compromete a no utilizar la Aplicación para ningún propósito ilegal o no autorizado. Se prohíbe cualquier acción que pueda dañar, deshabilitar o sobrecargar nuestros servidores o redes.</p>
+        
+        <h2>6. Política de Privacidad</h2>
+        <p>El tratamiento de sus datos personales se rige por nuestra Política de Privacidad. Al utilizar REGroup, usted acepta la recopilación y uso de su información de acuerdo con dicha política, incluyendo datos de ubicación para el funcionamiento del mapa de Puntos Verdes.</p>
+
+        <h2>7. Limitación de Responsabilidad</h2>
+        <p>REGroup no se hace responsable por la exactitud de la ubicación de los Puntos Verdes ni por la disponibilidad de los mismos. La interacción con los centros de recolección es responsabilidad exclusiva del usuario.</p>
+        
+        <a href="{{ url_for('register') }}" class="btn mt-4">Volver al Registro</a>
+    </div>
+</div>
+{% endblock %}

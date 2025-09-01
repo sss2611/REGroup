@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión - REGroup{% endblock %}
+
+{% block content %}
+<!-- Modal de Bienvenida -->
+<div id="welcomeModalOverlay" class="modal-overlay">
+    <div class="modal-content welcome-modal-content">
+        <img src="../static/img/logo.jpg" alt="REGroup Logo" class="logo">
+        <h2>Bienvenido a la comunidad REGroup</h2>
+        <p>Juntos, transformamos los residuos electrónicos en recursos valiosos para nuestra provincia.</p>
+        
+        <div class="welcome-steps">
+            <h3>¿Cómo funciona?</h3>
+            <ol>
+                <li>
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <div>
+                        <strong>Encuentra un Punto REG</strong>
+                        <span>Localiza tu centro de recolección más cercano.</span>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-qrcode"></i>
+                    <div>
+                        <strong>Escanea y Registra tu Entrega</strong>
+                        <span>Usa la app en el Punto REG para generar una etiqueta única.</span>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-award"></i>
+                    <div>
+                        <strong>Suma Puntos y Gana</strong>
+                        <span>Recibirás tus Eco-Puntos una vez que tu entrega sea verificada en nuestra planta.</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        
+        <div class="modal-footer">
+            <button id="closeWelcomeModal" class="btn">¡Entendido, empecemos!</button>
+        </div>
+    </div>
+</div>
+
+<!-- Formulario de Login (Existente) -->
+<div class="form-container">
+    <img src="../static/img/REGroup.jpg" alt="REGroup Logo" class="logo">
+    <h2>Iniciar Sesión</h2>
+    <p>Ingresa tus credenciales para continuar.</p>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.email.label(text="Correo Electrónico") }}
+            {{ form.email(class="form-control", placeholder="tu@correo.com") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder="Tu contraseña") }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+<p class="switch-form">¿No tienes una cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a></p></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modalOverlay = document.getElementById('welcomeModalOverlay');
+    const closeModalBtn = document.getElementById('closeWelcomeModal');
+
+    // Mostrar el modal solo si no se ha mostrado antes en esta sesión
+    if (!sessionStorage.getItem('welcomeModalShown')) {
+        modalOverlay.style.display = 'flex';
+        sessionStorage.setItem('welcomeModalShown', 'true');
+    }
+
+    // Ocultar el modal al hacer clic en el botón
+    closeModalBtn.addEventListener('click', function() {
+        modalOverlay.style.display = 'none';
+    });
+
+    // Ocultar el modal si se hace clic fuera del contenido
+    modalOverlay.addEventListener('click', function(event) {
+        if (event.target === modalOverlay) {
+            modalOverlay.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

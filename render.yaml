@@ -1,10 +1,10 @@
-# render.yaml
 services:
   - type: web
     name: regroup-app
     env: python
     buildCommand: ""
-    startCommand: gunicorn app:app
+    startCommand: gunicorn run:app
+    rootDir: REGroup
 envVars:
   - key: SECRET_KEY
     value: clave-super-secreta
