@@ -2,7 +2,7 @@ services:
   - type: web
     name: regroup-app
     env: python
-    buildCommand: ""
+    buildCommand: flask db upgrade && flask seed
     startCommand: gunicorn run:app
     rootDir: REGroup
 envVars:
