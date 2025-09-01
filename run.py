@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import User, RegPoint
+from app.models import RegPoint
 
 app = create_app()
 
