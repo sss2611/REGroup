@@ -1,0 +1,36 @@
+<!-- templates/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión - REGroup{% endblock %}
+
+{% block content %}
+  <div class="form-container">
+    <img src="{{ url_for('static', filename='img/REGroup.jpg') }}">
+
+    <h2>Iniciar Sesión</h2>
+    <p>Ingresa tus credenciales para continuar.</p>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      {{ form.hidden_tag() }}
+
+      <div class="form-group">
+        {{ form.email.label(text="Correo Electrónico") }}
+        {{ form.email(class="form-control", placeholder="tu@correo.com") }}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password(class="form-control", placeholder="Tu contraseña") }}
+      </div>
+
+      <div class="form-group">
+        {{ form.submit(class="btn") }}
+      </div>
+    </form>
+
+    <p class="switch-form">
+      ¿No tienes una cuenta?
+      <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    </p>
+  </div>
+{% endblock %}
