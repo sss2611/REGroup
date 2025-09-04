@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, render_template, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature

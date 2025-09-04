@@ -1,5 +1,4 @@
 REGroup/
-│
 ├── app.py
 ├── forms.py
 ├── templates/
