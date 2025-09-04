@@ -1,5 +1,4 @@
-# app.py
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -113,10 +112,19 @@ def dashboard():
         user_data = users.get(email, {})
         username = user_data.get('username', 'Usuario')
         points = user_data.get('points', 0)
-        return render_template('dashboard.html', username=username, points=points)
+        recent_activity = user_data.get('activity', [])
+        return render_template('dashboard.html', username=username, points=points, recent_activity=recent_activity)
     
     flash('Debes iniciar sesión para ver esta página.', 'info')
     return redirect(url_for('login'))
+
+@app.route('/scan')
+def scan():
+    if 'email' not in session:
+        flash('Debes iniciar sesión para escanear.', 'info')
+        return redirect(url_for('login'))
+    
+    return "<h2>Escaneo QR en desarrollo...</h2>"
 
 @app.route('/logout')
 def logout():
